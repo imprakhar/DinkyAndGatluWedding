@@ -22,7 +22,7 @@ export function BudgetBarChart({ data }: { data: BudgetItem[] }) {
           <CartesianGrid strokeDasharray="3 3" opacity={0.25} />
           <XAxis dataKey="category" tick={{ fontSize: 12 }} interval={0} angle={-15} textAnchor="end" height={56} />
           <YAxis tickFormatter={(value) => currency(Number(value))} width={72} />
-          <Tooltip formatter={(value: number) => currency(value)} />
+          <Tooltip formatter={(value) => currency(Number(value ?? 0))} />
           <Legend />
           <Bar dataKey="estimated_cost" fill="hsl(var(--secondary-foreground))" name="Estimated" radius={[6, 6, 0, 0]} />
           <Bar dataKey="actual_cost" fill="hsl(var(--primary))" name="Actual" radius={[6, 6, 0, 0]} />
