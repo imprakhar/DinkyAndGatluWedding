@@ -5,11 +5,11 @@ A modern Indian wedding planner for Dinky (Bride) and Gatlu (Groom), with guest 
 ## Tech Stack
 
 - Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS, ShadCN-style UI components, Zustand, Recharts, Framer Motion
-- Backend: FastAPI, SQLAlchemy, SQLite
+- Backend: FastAPI, SQLAlchemy, SQLite / PostgreSQL
 - Deployment (free tier):
   - Frontend: Vercel
   - Backend: Render (or Fly.io / Railway)
-  - Database: SQLite (included)
+  - Database: Render PostgreSQL free tier (recommended) or SQLite
 
 ## Features
 
@@ -164,7 +164,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 `backend/.env.example`
 
 ```env
-DATABASE_URL=sqlite:///./wedding_planner.db
+DATABASE_URL=sqlite:///wedding_planner.db
 FRONTEND_ORIGIN=http://localhost:3000
 ```
 
@@ -201,19 +201,25 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
 
-5. Add environment variables:
+5. Set Python version to `3.11.11` (Render environment variable `PYTHON_VERSION=3.11.11` or keep `backend/.python-version`).
+
+6. Add environment variables:
 
 ```env
-DATABASE_URL=sqlite:////var/data/wedding_planner.db
+# Recommended for real persistence (best): use Render Postgres "External Database URL"
+DATABASE_URL=<your-render-postgres-external-url>
 FRONTEND_ORIGIN=https://<your-vercel-domain>
 ```
 
-6. Add a persistent disk mounted at `/var/data` (required for SQLite persistence).
+7. Optional SQLite mode (only if you do NOT use Postgres):
+- Add a persistent disk mounted at `/var/data`
+- Set `DATABASE_URL=sqlite:////var/data/wedding_planner.db`
 
 ## Notes
 
-- SQLite is included and free.
-- For larger production workloads, you can migrate to Supabase free tier PostgreSQL by changing `DATABASE_URL` and DB engine config.
+- Local development defaults to `backend/wedding_planner.db`.
+- If data disappeared on Render, the service was likely using ephemeral storage. Use Render Postgres or mount a persistent disk for SQLite.
+- SQLite is included and free; Postgres free tier is more reliable for production-like usage.
 
 ## Free-tier deployment alternatives
 
