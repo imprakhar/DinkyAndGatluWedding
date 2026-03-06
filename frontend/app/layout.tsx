@@ -20,8 +20,8 @@ const bodyFont = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Wedding Planner",
-  description: "Modern wedding planner app with guest, room, budget, and inspiration tools.",
+  title: "Dinky and Gatlu Wedding",
+  description: "Indian wedding planner app for Dinky and Gatlu with guest, room, budget, and inspiration tools.",
 };
 
 export default function RootLayout({

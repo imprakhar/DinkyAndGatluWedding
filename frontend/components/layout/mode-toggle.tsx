@@ -2,10 +2,11 @@
 
 import { usePlannerStore } from "@/store/use-planner-store";
 import { cn } from "@/lib/utils";
+import { ownerFullLabel } from "@/lib/owner-labels";
 
 const modes = [
-  { label: "Bride", value: "bride" as const },
-  { label: "Groom", value: "groom" as const },
+  { value: "bride" as const },
+  { value: "groom" as const },
 ];
 
 export function ModeToggle() {
@@ -18,15 +19,16 @@ export function ModeToggle() {
         <button
           key={mode.value}
           type="button"
+          title={ownerFullLabel(mode.value)}
           onClick={() => setOwnerView(mode.value)}
           className={cn(
-            "rounded-full px-4 py-1.5 text-xs font-semibold transition",
+            "whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition",
             ownerView === mode.value
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground",
           )}
         >
-          {mode.label}
+          {ownerFullLabel(mode.value)}
         </button>
       ))}
     </div>

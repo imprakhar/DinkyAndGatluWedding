@@ -1,8 +1,6 @@
-# DinkyAndGatluWedding
+# Dinky and Gatlu Wedding (Next.js + FastAPI)
 
-# Wedding Planner (Next.js + FastAPI)
-
-A modern full-stack wedding planner with Bride/Groom mode, guest and room management, budget analytics, and inspiration board.
+A modern Indian wedding planner for Dinky (Bride) and Gatlu (Groom), with guest and room management, budget analytics, and inspiration board.
 
 ## Tech Stack
 
@@ -15,7 +13,8 @@ A modern full-stack wedding planner with Bride/Groom mode, guest and room manage
 
 ## Features
 
-- Bride / Groom mode toggle in header
+- Login authentication layer (cookie-based route protection)
+- Dinky (Bride) / Gatlu (Groom) mode toggle in header
 - Shared modules:
   - Guest List Management (CRUD + search + filters + CSV export)
   - Rooms Management (CRUD + occupancy + guest assignment)
@@ -168,6 +167,11 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 DATABASE_URL=sqlite:///./wedding_planner.db
 FRONTEND_ORIGIN=http://localhost:3000
 ```
+
+## Login Credentials
+
+- Groom login: `Prakhar` / `Akansha`
+- Bride login: `Akansha` / `Prakhar`
 
 ## Deployment Guide
 

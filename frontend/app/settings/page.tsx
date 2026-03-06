@@ -5,6 +5,7 @@ import { CheckCircle2, Link2, UserRound } from "lucide-react";
 
 import { SectionHeader } from "@/components/layout/section-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ownerFullLabel } from "@/lib/owner-labels";
 import { usePlannerStore } from "@/store/use-planner-store";
 
 export default function SettingsPage() {
@@ -12,10 +13,7 @@ export default function SettingsPage() {
   const apiBase =
     process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-  const ownerLabel = useMemo(
-    () => ownerView.charAt(0).toUpperCase() + ownerView.slice(1),
-    [ownerView],
-  );
+  const ownerLabel = useMemo(() => ownerFullLabel(ownerView), [ownerView]);
 
   return (
     <div className="space-y-6">

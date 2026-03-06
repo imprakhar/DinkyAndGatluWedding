@@ -10,13 +10,16 @@ import { useMemo, useState } from "react";
 import { ModeToggle } from "@/components/layout/mode-toggle";
 import { navItems } from "@/components/layout/nav-items";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { FestiveOverlay } from "@/components/layout/festive-overlay";
+import { LogoutButton } from "@/components/layout/logout-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { LOGIN_PATH } from "@/lib/auth";
 
 const pageCopy: Record<string, { title: string; subtitle: string }> = {
   "/dashboard": {
-    title: "Wedding Command Center",
-    subtitle: "Track guests, budget, rooms, and shared planning in one place.",
+    title: "Dinky and Gatlu Wedding",
+    subtitle: "Track guests, budget, rooms, and rituals in one place.",
   },
   "/guests": {
     title: "Guest List",
@@ -71,28 +74,42 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isLoginPage = pathname === LOGIN_PATH;
 
   const copy = useMemo(() => {
     const matched = Object.entries(pageCopy).find(([key]) => pathname.startsWith(key));
     return (
       matched?.[1] ?? {
-        title: "Wedding Planner",
-        subtitle: "Organize every detail with Bride and Groom planning modes.",
+        title: "Dinky and Gatlu Wedding",
+        subtitle: "Organize every detail with Dinky and Gatlu planning modes.",
       }
     );
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-background bg-wedding-glow">
-      <div className="flex min-h-screen">
+    <div className="relative isolate min-h-screen">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/wedding-background.png')" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_bottom,rgba(255,248,236,0.64),rgba(255,248,236,0.42))] dark:bg-[linear-gradient(to_bottom,rgba(27,10,8,0.72),rgba(27,10,8,0.56))]"
+      />
+      <FestiveOverlay />
+      {isLoginPage ? (
+        <main className="relative z-10">{children}</main>
+      ) : (
+      <div className="relative z-10 flex min-h-screen">
         <aside className="hidden w-72 border-r border-border/80 bg-card/75 p-5 backdrop-blur-xl lg:block">
           <div className="mb-8 flex items-center gap-2">
             <div className="rounded-full bg-primary/20 p-2 text-primary">
               <Heart className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-sm font-semibold">EverAfter Planner</p>
-              <p className="text-xs text-muted-foreground">Wedding OS</p>
+              <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
+              <p className="text-xs text-muted-foreground">Indian Wedding Planner</p>
             </div>
           </div>
           <SidebarNav />
@@ -113,7 +130,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className="rounded-full bg-primary/20 p-2 text-primary">
                 <Heart className="h-4 w-4" />
               </div>
-              <p className="text-sm font-semibold">EverAfter Planner</p>
+              <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
             </div>
             <Button size="icon" variant="ghost" onClick={() => setMobileOpen(false)}>
               <X className="h-4 w-4" />
@@ -141,6 +158,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
+                <LogoutButton />
                 <ModeToggle />
                 <ThemeToggle />
               </div>
@@ -158,6 +176,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </motion.main>
         </div>
       </div>
+      )}
     </div>
   );
 }

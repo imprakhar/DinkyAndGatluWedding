@@ -17,6 +17,7 @@ import { LoadingState } from "@/components/ui/loading";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
+import { ownerFullLabel } from "@/lib/owner-labels";
 import { usePlannerStore } from "@/store/use-planner-store";
 import type { InspirationLink, OwnerType } from "@/types";
 
@@ -143,8 +144,8 @@ export default function InspirationPage() {
             <div className="space-y-2">
               <Label htmlFor="owner_type">Owner</Label>
               <Select id="owner_type" {...form.register("owner_type")}>
-                <option value="bride">Bride</option>
-                <option value="groom">Groom</option>
+                <option value="bride">Dinky (Bride)</option>
+                <option value="groom">Gatlu (Groom)</option>
                 <option value="shared">Shared</option>
               </Select>
             </div>
@@ -183,8 +184,8 @@ export default function InspirationPage() {
             onChange={(event) => setOwnerFilter(event.target.value as typeof ownerFilter)}
           >
             <option value="all">All Owners</option>
-            <option value="bride">Bride</option>
-            <option value="groom">Groom</option>
+            <option value="bride">Dinky (Bride)</option>
+            <option value="groom">Gatlu (Groom)</option>
             <option value="shared">Shared</option>
           </Select>
         </CardContent>
@@ -203,7 +204,7 @@ export default function InspirationPage() {
                     <p className="text-sm text-muted-foreground">{link.category}</p>
                   </div>
                   <Badge variant="secondary">
-                    {link.owner_type.charAt(0).toUpperCase() + link.owner_type.slice(1)}
+                    {ownerFullLabel(link.owner_type)}
                   </Badge>
                 </div>
               </CardHeader>

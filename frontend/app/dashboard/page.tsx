@@ -11,6 +11,7 @@ import { LoadingState } from "@/components/ui/loading";
 import { StatCard } from "@/components/ui/stat-card";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/lib/api";
+import { ownerFullLabel } from "@/lib/owner-labels";
 import { currency } from "@/lib/utils";
 import { usePlannerStore } from "@/store/use-planner-store";
 import type { BudgetItem, Guest, InspirationLink, Room } from "@/types";
@@ -161,7 +162,7 @@ export default function DashboardPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="font-[var(--font-display)] text-2xl">
-                  {ownerView === "bride" ? "Bride Notes & Ideas" : "Groom Notes & Ideas"}
+                  {ownerFullLabel(ownerView)} Notes & Ideas
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">

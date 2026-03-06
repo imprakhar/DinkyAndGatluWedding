@@ -50,11 +50,11 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        soft: "0 10px 40px -24px rgba(196, 107, 83, 0.5)",
+        soft: "0 16px 40px -24px rgba(145, 36, 24, 0.5)",
       },
       backgroundImage: {
         "wedding-glow":
-          "radial-gradient(circle at top right, rgba(214, 153, 127, 0.28), transparent 45%), radial-gradient(circle at 20% 0%, rgba(126, 162, 149, 0.2), transparent 35%)",
+          "radial-gradient(circle at 92% 0%, rgba(216, 143, 28, 0.28), transparent 42%), radial-gradient(circle at 12% 0%, rgba(168, 40, 30, 0.22), transparent 34%), radial-gradient(circle at 48% -18%, rgba(90, 126, 68, 0.2), transparent 30%)",
       },
       keyframes: {
         "fade-up": {
