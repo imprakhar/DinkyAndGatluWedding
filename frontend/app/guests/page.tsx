@@ -412,58 +412,101 @@ export default function GuestsPage() {
           {loading ? <LoadingState label="Loading guests..." /> : null}
 
           {!loading ? (
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[920px] text-left text-sm">
-                <thead>
-                  <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
-                    <th className="pb-3">Name</th>
-                    <th className="pb-3">Group</th>
-                    <th className="pb-3">Guests</th>
-                    <th className="pb-3">Room</th>
-                    <th className="pb-3">Stay</th>
-                    <th className="pb-3">Vehicle</th>
-                    <th className="pb-3">Arrival</th>
-                    <th className="pb-3 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredGuests.map((guest) => (
-                    <tr key={guest.id} className="border-b border-border/50">
-                      <td className="py-3 font-medium">{guest.name}</td>
-                      <td className="py-3">{guest.group_name || "-"}</td>
-                      <td className="py-3">{guest.guest_count}</td>
-                      <td className="py-3">
-                        {guest.room_id ? roomMap.get(guest.room_id) ?? "-" : "Unassigned"}
-                      </td>
-                      <td className="py-3">
-                        <Badge variant="secondary">
-                          {guest.stay_type === "primary" ? "Primary" : "Secondary"}
-                        </Badge>
-                      </td>
-                      <td className="py-3">
-                        <Badge variant={guest.has_vehicle ? "success" : "outline"}>
-                          {guest.has_vehicle ? "Yes" : "No"}
-                        </Badge>
-                      </td>
-                      <td className="py-3">
-                        <Badge variant={guest.arrival_confirmed ? "success" : "warning"}>
-                          {guest.arrival_confirmed ? "Confirmed" : "Pending"}
-                        </Badge>
-                      </td>
-                      <td className="py-3">
-                        <div className="flex justify-end gap-2">
-                          <Button size="sm" variant="outline" onClick={() => startEdit(guest)}>
-                            <Pencil className="h-3.5 w-3.5" />
-                          </Button>
-                          <Button size="sm" variant="destructive" onClick={() => onDelete(guest.id)}>
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      </td>
+            <>
+              <div className="space-y-3 md:hidden">
+                {filteredGuests.map((guest) => (
+                  <div key={guest.id} className="rounded-lg border border-border/70 bg-background/70 p-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-medium">{guest.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {guest.group_name || "No group"} · {guest.guest_count} guest(s)
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" onClick={() => startEdit(guest)}>
+                          <Pencil className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button size="sm" variant="destructive" onClick={() => onDelete(guest.id)}>
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Badge variant="secondary">
+                        Room: {guest.room_id ? roomMap.get(guest.room_id) ?? "-" : "Unassigned"}
+                      </Badge>
+                      <Badge variant="secondary">
+                        Stay: {guest.stay_type === "primary" ? "Primary" : "Secondary"}
+                      </Badge>
+                      <Badge variant={guest.has_vehicle ? "success" : "outline"}>
+                        Vehicle: {guest.has_vehicle ? "Yes" : "No"}
+                      </Badge>
+                      <Badge variant={guest.arrival_confirmed ? "success" : "warning"}>
+                        Arrival: {guest.arrival_confirmed ? "Confirmed" : "Pending"}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden overflow-x-auto md:block">
+                <table className="w-full min-w-[920px] text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
+                      <th className="pb-3">Name</th>
+                      <th className="pb-3">Group</th>
+                      <th className="pb-3">Guests</th>
+                      <th className="pb-3">Room</th>
+                      <th className="pb-3">Stay</th>
+                      <th className="pb-3">Vehicle</th>
+                      <th className="pb-3">Arrival</th>
+                      <th className="pb-3 text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredGuests.map((guest) => (
+                      <tr key={guest.id} className="border-b border-border/50">
+                        <td className="py-3 font-medium">{guest.name}</td>
+                        <td className="py-3">{guest.group_name || "-"}</td>
+                        <td className="py-3">{guest.guest_count}</td>
+                        <td className="py-3">
+                          {guest.room_id ? roomMap.get(guest.room_id) ?? "-" : "Unassigned"}
+                        </td>
+                        <td className="py-3">
+                          <Badge variant="secondary">
+                            {guest.stay_type === "primary" ? "Primary" : "Secondary"}
+                          </Badge>
+                        </td>
+                        <td className="py-3">
+                          <Badge variant={guest.has_vehicle ? "success" : "outline"}>
+                            {guest.has_vehicle ? "Yes" : "No"}
+                          </Badge>
+                        </td>
+                        <td className="py-3">
+                          <Badge variant={guest.arrival_confirmed ? "success" : "warning"}>
+                            {guest.arrival_confirmed ? "Confirmed" : "Pending"}
+                          </Badge>
+                        </td>
+                        <td className="py-3">
+                          <div className="flex justify-end gap-2">
+                            <Button size="sm" variant="outline" onClick={() => startEdit(guest)}>
+                              <Pencil className="h-3.5 w-3.5" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => onDelete(guest.id)}
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
               {!filteredGuests.length ? (
                 <div className="flex items-center justify-center gap-2 py-10 text-muted-foreground">
@@ -471,7 +514,7 @@ export default function GuestsPage() {
                   <p>No guests match the selected filters.</p>
                 </div>
               ) : null}
-            </div>
+            </>
           ) : null}
         </CardContent>
       </Card>

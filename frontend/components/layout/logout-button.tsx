@@ -28,13 +28,15 @@ export function LogoutButton() {
   return (
     <Button
       variant="outline"
-      size="sm"
+      size="icon"
       onClick={onLogout}
       disabled={loading}
       aria-label="Logout"
+      title="Logout"
+      className="sm:h-9 sm:w-auto sm:px-3"
     >
-      <LogOut className="mr-2 h-4 w-4" />
-      {loading ? "Signing out..." : "Logout"}
+      <LogOut className="h-4 w-4 sm:mr-2" />
+      <span className="hidden sm:inline">{loading ? "Signing out..." : "Logout"}</span>
     </Button>
   );
 }

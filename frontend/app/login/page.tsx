@@ -60,7 +60,13 @@ export default function LoginPage() {
   });
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-xl items-center px-4 py-12">
+    <div
+      className="mx-auto flex min-h-[100dvh] w-full max-w-xl items-center px-4 py-12"
+      style={{
+        paddingTop: "max(env(safe-area-inset-top), 3rem)",
+        paddingBottom: "max(env(safe-area-inset-bottom), 3rem)",
+      }}
+    >
       <Card className="w-full bg-card/90 backdrop-blur-md">
         <CardHeader className="space-y-3 text-center">
           <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">

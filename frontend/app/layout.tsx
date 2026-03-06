@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 
@@ -22,6 +22,12 @@ const bodyFont = Manrope({
 export const metadata: Metadata = {
   title: "Dinky and Gatlu Wedding",
   description: "Indian wedding planner app for Dinky and Gatlu with guest, room, budget, and inspiration tools.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

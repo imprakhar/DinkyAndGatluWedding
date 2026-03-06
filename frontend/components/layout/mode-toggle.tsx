@@ -2,7 +2,7 @@
 
 import { usePlannerStore } from "@/store/use-planner-store";
 import { cn } from "@/lib/utils";
-import { ownerFullLabel } from "@/lib/owner-labels";
+import { ownerFullLabel, ownerShortLabel } from "@/lib/owner-labels";
 
 const modes = [
   { value: "bride" as const },
@@ -28,7 +28,8 @@ export function ModeToggle() {
               : "text-muted-foreground hover:text-foreground",
           )}
         >
-          {ownerFullLabel(mode.value)}
+          <span className="sm:hidden">{ownerShortLabel(mode.value)}</span>
+          <span className="hidden sm:inline">{ownerFullLabel(mode.value)}</span>
         </button>
       ))}
     </div>

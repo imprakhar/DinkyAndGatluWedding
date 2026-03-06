@@ -134,7 +134,7 @@ export default function RoomsPage() {
               <p className="text-xs text-red-600">{form.formState.errors.capacity?.message}</p>
             </div>
 
-            <div className="flex items-end gap-2">
+            <div className="flex items-end gap-2 md:justify-start">
               <Button type="submit">
                 {editingRoom ? (
                   <>
@@ -206,7 +206,7 @@ export default function RoomsPage() {
 
                   <div className="space-y-2 rounded-lg border border-border/70 p-3">
                     <Label htmlFor={`assign-${room.id}`}>Assign Guest to Room</Label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 sm:flex-row">
                       <Select
                         id={`assign-${room.id}`}
                         value={assignments[room.id] ?? ""}
@@ -224,7 +224,7 @@ export default function RoomsPage() {
                           </option>
                         ))}
                       </Select>
-                      <Button type="button" onClick={() => assignGuest(room.id)}>
+                      <Button type="button" className="sm:w-auto" onClick={() => assignGuest(room.id)}>
                         Assign
                       </Button>
                     </div>

@@ -101,81 +101,85 @@ export function AppShell({ children }: { children: ReactNode }) {
       {isLoginPage ? (
         <main className="relative z-10">{children}</main>
       ) : (
-      <div className="relative z-10 flex min-h-screen">
-        <aside className="hidden w-72 border-r border-border/80 bg-card/75 p-5 backdrop-blur-xl lg:block">
-          <div className="mb-8 flex items-center gap-2">
-            <div className="rounded-full bg-primary/20 p-2 text-primary">
-              <Heart className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
-              <p className="text-xs text-muted-foreground">Indian Wedding Planner</p>
-            </div>
-          </div>
-          <SidebarNav />
-        </aside>
-
-        {mobileOpen && (
-          <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick={() => setMobileOpen(false)} />
-        )}
-
-        <aside
-          className={cn(
-            "fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-card p-5 shadow-xl transition-transform lg:hidden",
-            mobileOpen ? "translate-x-0" : "-translate-x-full",
-          )}
-        >
-          <div className="mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+        <div className="relative z-10 flex min-h-screen">
+          <aside className="hidden w-72 border-r border-border/80 bg-card/75 p-5 backdrop-blur-xl lg:block">
+            <div className="mb-8 flex items-center gap-2">
               <div className="rounded-full bg-primary/20 p-2 text-primary">
                 <Heart className="h-4 w-4" />
               </div>
-              <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
-            </div>
-            <Button size="icon" variant="ghost" onClick={() => setMobileOpen(false)}>
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-          <SidebarNav onNavigate={() => setMobileOpen(false)} />
-        </aside>
-
-        <div className="flex min-h-screen flex-1 flex-col">
-          <header className="sticky top-0 z-30 border-b border-border/70 bg-background/75 backdrop-blur-lg">
-            <div className="flex flex-wrap items-center gap-4 px-4 py-4 md:px-8">
-              <Button
-                size="icon"
-                variant="outline"
-                className="lg:hidden"
-                onClick={() => setMobileOpen(true)}
-                aria-label="Open navigation"
-              >
-                <Menu className="h-4 w-4" />
-              </Button>
-
-              <div className="min-w-[220px] flex-1">
-                <p className="font-semibold tracking-tight">{copy.title}</p>
-                <p className="text-xs text-muted-foreground">{copy.subtitle}</p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                <LogoutButton />
-                <ModeToggle />
-                <ThemeToggle />
+              <div>
+                <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
+                <p className="text-xs text-muted-foreground">Indian Wedding Planner</p>
               </div>
             </div>
-          </header>
+            <SidebarNav />
+          </aside>
 
-          <motion.main
-            key={pathname}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.24, ease: "easeOut" }}
-            className="flex-1 px-4 py-6 md:px-8 md:py-8"
+          {mobileOpen && (
+            <div
+              className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+              onClick={() => setMobileOpen(false)}
+            />
+          )}
+
+          <aside
+            className={cn(
+              "fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-card p-5 shadow-xl transition-transform lg:hidden",
+              mobileOpen ? "translate-x-0" : "-translate-x-full",
+            )}
           >
-            {children}
-          </motion.main>
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="rounded-full bg-primary/20 p-2 text-primary">
+                  <Heart className="h-4 w-4" />
+                </div>
+                <p className="text-sm font-semibold">Dinky and Gatlu Wedding</p>
+              </div>
+              <Button size="icon" variant="ghost" onClick={() => setMobileOpen(false)}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <SidebarNav onNavigate={() => setMobileOpen(false)} />
+          </aside>
+
+          <div className="flex min-h-screen flex-1 flex-col">
+            <header className="sticky top-0 z-30 border-b border-border/70 bg-background/75 backdrop-blur-lg [padding-top:env(safe-area-inset-top)]">
+              <div className="flex flex-wrap items-center gap-3 px-3 py-3 md:px-8 md:py-4">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="lg:hidden"
+                  onClick={() => setMobileOpen(true)}
+                  aria-label="Open navigation"
+                >
+                  <Menu className="h-4 w-4" />
+                </Button>
+
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-semibold tracking-tight">{copy.title}</p>
+                  <p className="hidden text-xs text-muted-foreground sm:block">{copy.subtitle}</p>
+                </div>
+
+                <div className="flex w-full items-center justify-end gap-2 sm:w-auto">
+                  <LogoutButton />
+                  <ModeToggle />
+                  <ThemeToggle />
+                </div>
+              </div>
+            </header>
+
+            <motion.main
+              key={pathname}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.24, ease: "easeOut" }}
+              className="flex-1 px-3 py-5 md:px-8 md:py-8"
+              style={{ paddingBottom: "max(env(safe-area-inset-bottom), 1.25rem)" }}
+            >
+              {children}
+            </motion.main>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
