@@ -5,11 +5,11 @@ A modern Indian wedding planner for Dinky (Bride) and Gatlu (Groom), with guest 
 ## Tech Stack
 
 - Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS, ShadCN-style UI components, Zustand, Recharts, Framer Motion
-- Backend: FastAPI, SQLAlchemy, SQLite / PostgreSQL
+- Backend: FastAPI, SQLAlchemy, SQLite / PostgreSQL (Supabase ready)
 - Deployment (free tier):
   - Frontend: Vercel
   - Backend: Render (or Fly.io / Railway)
-  - Database: Render PostgreSQL free tier (recommended) or SQLite
+  - Database: Supabase PostgreSQL free tier (recommended) or SQLite
 
 ## Features
 
@@ -185,7 +185,7 @@ FRONTEND_ORIGIN=http://localhost:3000
 
 `frontend/vercel.json` is included for standard Next.js build setup.
 
-## Backend -> Render (Free Tier)
+## Backend -> Render + Supabase (Free Tier)
 
 1. Create a new **Web Service** in Render using this repo.
 2. Set root directory to `backend`.
@@ -203,23 +203,30 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 5. Set Python version to `3.11.11` (Render environment variable `PYTHON_VERSION=3.11.11` or keep `backend/.python-version`).
 
-6. Add environment variables:
+6. Create a free Supabase project:
+- Open [supabase.com](https://supabase.com/) and create a new project.
+- Go to `Project Settings -> Database -> Connection string`.
+- Copy the SQLAlchemy/URI connection string.
+
+7. Add Render environment variables:
 
 ```env
-# Recommended for real persistence (best): use Render Postgres "External Database URL"
-DATABASE_URL=<your-render-postgres-external-url>
+# Recommended for real persistence:
+DATABASE_URL=<your-supabase-connection-string>
 FRONTEND_ORIGIN=https://<your-vercel-domain>
 ```
 
-7. Optional SQLite mode (only if you do NOT use Postgres):
+8. Redeploy the Render service.
+
+9. Optional SQLite mode (only if you do NOT use Supabase):
 - Add a persistent disk mounted at `/var/data`
 - Set `DATABASE_URL=sqlite:////var/data/wedding_planner.db`
 
 ## Notes
 
 - Local development defaults to `backend/wedding_planner.db`.
-- If data disappeared on Render, the service was likely using ephemeral storage. Use Render Postgres or mount a persistent disk for SQLite.
-- SQLite is included and free; Postgres free tier is more reliable for production-like usage.
+- If data disappeared on Render, the service was likely using ephemeral storage. Use Supabase Postgres or mount a persistent disk for SQLite.
+- SQLite is included and free; Supabase Postgres free tier is more reliable for production-like usage.
 
 ## Free-tier deployment alternatives
 

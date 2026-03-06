@@ -1,6 +1,7 @@
 import os
 from collections.abc import Generator
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
@@ -21,6 +22,14 @@ def _normalize_database_url(raw_url: str) -> str:
         if sqlite_path and sqlite_path != ":memory:" and not sqlite_path.startswith("/"):
             absolute_path = (BACKEND_DIR / sqlite_path).resolve()
             normalized = f"sqlite:///{absolute_path.as_posix()}"
+
+    # Supabase Postgres requires SSL; add it automatically if missing.
+    parsed = urlparse(normalized)
+    if parsed.scheme == "postgresql" and (parsed.hostname or "").endswith("supabase.co"):
+        query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+        if "sslmode" not in query:
+            query["sslmode"] = "require"
+            normalized = urlunparse(parsed._replace(query=urlencode(query)))
 
     return normalized
 
