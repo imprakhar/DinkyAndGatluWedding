@@ -25,7 +25,10 @@ def _normalize_database_url(raw_url: str) -> str:
 
     # Supabase Postgres requires SSL; add it automatically if missing.
     parsed = urlparse(normalized)
-    if parsed.scheme == "postgresql" and (parsed.hostname or "").endswith("supabase.co"):
+    host = (parsed.hostname or "")
+    if parsed.scheme == "postgresql" and (
+        host.endswith("supabase.co") or host.endswith("supabase.com")
+    ):
         query = dict(parse_qsl(parsed.query, keep_blank_values=True))
         if "sslmode" not in query:
             query["sslmode"] = "require"
